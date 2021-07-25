@@ -2,10 +2,10 @@ package com.github.gabrielgouv.application.dto.book;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Setter;
 
 @Builder
-@Data
+@Setter
 @Schema(name="DeleteBookOutputDTO", description="Delete book model")
 public class DeleteBookOutputDTO {
 

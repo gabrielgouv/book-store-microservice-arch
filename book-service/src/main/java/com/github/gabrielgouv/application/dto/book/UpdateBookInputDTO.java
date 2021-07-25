@@ -2,10 +2,11 @@ package com.github.gabrielgouv.application.dto.book;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
+@Setter
 @Schema(name="UpdateBookInputDTO", description="Update book model")
 public class UpdateBookInputDTO {
 
