@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Book extends BaseEntity {
+public class Book extends BaseEntity<String> {
 
     private String title;
     private String description;

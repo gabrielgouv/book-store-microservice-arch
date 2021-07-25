@@ -3,8 +3,8 @@ package com.github.gabrielgouv.domain.entity.base;
 import lombok.Data;
 
 @Data
-public class BaseEntity {
+public class BaseEntity<T> {
 
-    private String id;
+    private T id;
 
 }
