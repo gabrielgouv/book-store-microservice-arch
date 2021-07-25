@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>book-service</artifactId>
+    <artifactId>book-store-core</artifactId>
     <packaging>${packaging}</packaging>
 
     <parent>
@@ -27,16 +27,9 @@
         <jdk.version>11</jdk.version>
         <release.version>11</release.version>
         <micronaut.version>2.5.9</micronaut.version>
-        <exec.mainClass>com.github.gabrielgouv.BookApplication</exec.mainClass>
-        <micronaut.runtime>netty</micronaut.runtime>
     </properties>
 
     <dependencies>
-        <dependency>
-            <artifactId>book-store-core</artifactId>
-            <groupId>com.github.gabrielgouv</groupId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>micronaut-inject</artifactId>
@@ -87,11 +80,6 @@
             <artifactId>logback-classic</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>io.micronaut.mongodb</groupId>
-            <artifactId>micronaut-mongo-sync</artifactId>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -111,8 +99,8 @@
                     <annotationProcessorPaths combine.children="append">
                     </annotationProcessorPaths>
                     <compilerArgs>
-                        <arg>-Amicronaut.processing.group=com.github.gabrielgouv</arg>
-                        <arg>-Amicronaut.processing.module=user-service</arg>
+                        <arg>-Amicronaut.processing.group=com.github.gabrielgouv.bookstore.core</arg>
+                        <arg>-Amicronaut.processing.module=book-store-core</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>

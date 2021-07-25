@@ -1,7 +1,7 @@
-package com.github.gabrielgouv.core.handler.dto;
+package com.github.gabrielgouv.bookstore.core.handler.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.gabrielgouv.core.util.DateUtil;
+import com.github.gabrielgouv.bookstore.core.util.DateUtil;
 import lombok.Builder;
 import lombok.Getter;
 

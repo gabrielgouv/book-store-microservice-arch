@@ -1,6 +1,6 @@
-package com.github.gabrielgouv.core.handler;
+package com.github.gabrielgouv.bookstore.core.handler;
 
-import com.github.gabrielgouv.core.handler.dto.ErrorDTO;
+import com.github.gabrielgouv.bookstore.core.handler.dto.ErrorDTO;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;

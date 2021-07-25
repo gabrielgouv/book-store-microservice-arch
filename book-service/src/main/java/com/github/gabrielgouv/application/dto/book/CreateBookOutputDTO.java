@@ -1,7 +1,7 @@
 package com.github.gabrielgouv.application.dto.book;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.github.gabrielgouv.core.util.DateUtil;
+import com.github.gabrielgouv.bookstore.core.util.DateUtil;
 import lombok.Data;
 
 import java.math.BigDecimal;

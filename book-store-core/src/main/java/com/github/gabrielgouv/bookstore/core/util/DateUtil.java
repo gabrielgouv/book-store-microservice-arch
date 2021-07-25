@@ -1,4 +1,4 @@
-package com.github.gabrielgouv.core.util;
+package com.github.gabrielgouv.bookstore.core.util;
 
 import lombok.experimental.UtilityClass;
 

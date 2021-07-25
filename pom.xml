@@ -20,6 +20,7 @@
         <module>book-service</module>
         <module>cart-service</module>
         <module>user-library-service</module>
+        <module>book-store-core</module>
     </modules>
 
     <repositories>
