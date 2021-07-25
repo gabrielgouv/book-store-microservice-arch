@@ -4,6 +4,14 @@ micronaut:
   server:
     port: 8091
     context-path: /${micronaut.application.name}/api
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
 
 mongodb:
   uri: mongodb://username:password@localhost:27017/databaseName
