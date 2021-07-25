@@ -34,11 +34,11 @@ public class BookRepositoryImpl extends MongoBaseRepository<Book> implements Boo
         }
         BsonValue insertedId = result.getInsertedId();
         if (insertedId == null) {
-            throw new RuntimeException("Book was not inserted");
+            throw new RuntimeException("Cannot get inserted book id");
         }
         Book insertedBook = getCollection().find(eq(ID_FIELD, bookId)).first();
         if (insertedBook == null) {
-            throw new RuntimeException("Cannot find recently inserted book");
+            throw new RuntimeException("Book id::" + insertedId.asObjectId().getValue() + " was inserted but could not be returned");
         }
         return insertedBook;
     }
