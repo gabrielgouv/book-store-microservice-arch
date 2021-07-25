@@ -8,7 +8,7 @@ This is a big personal project to put in practice some microservices technologie
 - Distributed tracing (not implemented yet)
 - Authentication (not implemented yet)
 - gRPC (not implemented yet)
-- DDD
+- Domain Driven Design
 - Saga (not implemented yet)
 
 ### Resume:
