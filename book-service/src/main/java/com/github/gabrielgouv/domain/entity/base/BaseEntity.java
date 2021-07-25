@@ -2,9 +2,14 @@ package com.github.gabrielgouv.domain.entity.base;
 
 import lombok.Data;
 
-@Data
-public class BaseEntity<T> {
+import java.time.LocalDateTime;
 
-    private T id;
+@Data
+public class BaseEntity<ID> {
+
+    private ID id;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 
 }

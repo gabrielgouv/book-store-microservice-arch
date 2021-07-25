@@ -8,10 +8,12 @@ import org.bson.BsonValue;
 
 import javax.inject.Inject;
 import java.lang.reflect.ParameterizedType;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static com.mongodb.client.model.Filters.eq;
 
+@SuppressWarnings("unchecked")
 public class MongoBaseRepository<T extends BaseEntity> {
 
     protected static final String ID_FIELD = "_id";
@@ -22,7 +24,6 @@ public class MongoBaseRepository<T extends BaseEntity> {
     private final Class<T> typeOfT;
 
     @Inject
-    @SuppressWarnings("unchecked")
     public MongoBaseRepository(final MongoClient mongoClient, final String databaseName, final String collectionName) {
         this.mongoClient = mongoClient;
         this.databaseName = databaseName;
@@ -40,6 +41,7 @@ public class MongoBaseRepository<T extends BaseEntity> {
     protected T persist(T entity) {
         final String generatedId = generateId();
         entity.setId(generatedId);
+        entity.setCreatedAt(LocalDateTime.now());
         InsertOneResult result = getCollection().insertOne(entity);
         if (!result.wasAcknowledged()) {
             throw new RuntimeException("Cannot insert a new entity");
