@@ -2,25 +2,52 @@ package com.github.gabrielgouv.application.dto.book;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.gabrielgouv.bookstore.core.util.DateUtil;
-import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Schema(name="CreateBookOutputDTO", description="Created book model")
 public class CreateBookOutputDTO {
 
     private String id;
+    private LocalDateTime createdAt;
+    private String title;
+    private String description;
+    private BigDecimal price;
+    private String isbn;
+
+    @Schema(description="Book generated ID")
+    public String getId() {
+        return id;
+    }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateUtil.DEFAULT_DATE_TIME_FORMAT)
-    private LocalDateTime createdAt;
+    @Schema(description="Book created date")
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-    private String title;
+    @Schema(description="Book name")
+    public String getTitle() {
+        return title;
+    }
 
-    private String description;
+    @Schema(description="Book description")
+    public String getDescription() {
+        return description;
+    }
 
-    private BigDecimal price;
+    @Schema(description="Book price", type = "string")
+    public BigDecimal getPrice() {
+        return price;
+    }
 
-    private String isbn;
+    @Schema(description="Book ISBN code")
+    public String getIsbn() {
+        return isbn;
+    }
 
 }
