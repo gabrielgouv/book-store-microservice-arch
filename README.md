@@ -1,4 +1,4 @@
-### book-store-microservices
+## book-store-microservices
 
 This is a big personal project to put in practice some microservices technologies and patterns like:
 - Kubernetes (not implemented yet)
@@ -11,7 +11,7 @@ This is a big personal project to put in practice some microservices technologie
 - DDD
 - Saga (not implemented yet)
 
-#### Resume:
+### Resume:
 
 **book-service (Service)**
 - [X] Register books
