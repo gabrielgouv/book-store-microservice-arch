@@ -1,13 +1,14 @@
 package com.github.gabrielgouv.presentation.controller;
 
 import com.github.gabrielgouv.application.dto.book.*;
+import io.micronaut.http.HttpResponse;
 
 public interface BookController {
 
-    CreateBookOutputDTO createBook(CreateBookInputDTO createBookInputDTO);
+    HttpResponse<CreateBookOutputDTO> createBook(CreateBookInputDTO createBookInputDTO);
 
-    DeleteBookOutputDTO deleteBook(String bookId);
+    HttpResponse<DeleteBookOutputDTO> deleteBook(String bookId);
 
-    UpdateBookOutputDTO updateBook(UpdateBookInputDTO updateBookInputDTO);
+    HttpResponse<UpdateBookOutputDTO> updateBook(UpdateBookInputDTO updateBookInputDTO);
 
 }
