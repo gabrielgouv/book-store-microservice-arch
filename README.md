@@ -7,7 +7,7 @@ This is a big personal project to put in practice some microservices technologie
 - Distributed logs (not implemented yet)
 - Distributed tracing (not implemented yet)
 - Authentication (not implemented yet)
-- GRPC (not implemented yet)
+- gRPC (not implemented yet)
 - DDD
 - Saga (not implemented yet)
 
