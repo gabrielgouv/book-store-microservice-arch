@@ -4,14 +4,9 @@ import com.github.gabrielgouv.domain.entity.Book;
 import com.github.gabrielgouv.domain.repository.BookRepository;
 import com.github.gabrielgouv.infrastructure.repository.mongodb.base.MongoBaseRepository;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.result.InsertOneResult;
-import org.bson.BsonValue;
-
-import static com.mongodb.client.model.Filters.eq;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.UUID;
 
 @Singleton
 public class BookRepositoryImpl extends MongoBaseRepository<Book> implements BookRepository {
@@ -26,21 +21,7 @@ public class BookRepositoryImpl extends MongoBaseRepository<Book> implements Boo
 
     @Override
     public Book persistBook(Book book) {
-        final String bookId = UUID.randomUUID().toString();
-        book.setId(bookId);
-        InsertOneResult result = getCollection().insertOne(book);
-        if (!result.wasAcknowledged()) {
-            throw new RuntimeException("Cannot insert a new book");
-        }
-        BsonValue insertedId = result.getInsertedId();
-        if (insertedId == null) {
-            throw new RuntimeException("Cannot get inserted book id");
-        }
-        Book insertedBook = getCollection().find(eq(ID_FIELD, bookId)).first();
-        if (insertedBook == null) {
-            throw new RuntimeException("Book id::" + insertedId.asObjectId().getValue() + " was inserted but could not be returned");
-        }
-        return insertedBook;
+        return persist(book);
     }
 
     @Override
