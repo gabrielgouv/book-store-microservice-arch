@@ -1,0 +1,5 @@
+micronaut:
+  application:
+    name: user-library-service
+  server:
+    port: 8093

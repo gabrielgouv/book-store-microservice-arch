@@ -1,0 +1,5 @@
+micronaut:
+  application:
+    name: cart-service
+  server:
+    port: 8092
