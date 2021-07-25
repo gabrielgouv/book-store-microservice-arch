@@ -3,6 +3,9 @@ package com.github.gabrielgouv.infrastructure.repository.impl;
 import com.github.gabrielgouv.domain.entity.Book;
 import com.github.gabrielgouv.domain.repository.BookRepository;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class BookRepositoryImpl implements BookRepository {
 
     @Override
