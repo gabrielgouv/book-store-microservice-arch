@@ -3,6 +3,7 @@ micronaut:
     name: book-service
   server:
     port: 8091
+    context-path: /${micronaut.application.name}/api
 
 mongodb:
   uri: mongodb://username:password@localhost:27017/databaseName
