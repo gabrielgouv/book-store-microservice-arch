@@ -3,6 +3,7 @@ package com.github.gabrielgouv.infrastructure.repository.mongodb.base;
 import com.github.gabrielgouv.domain.entity.base.BaseEntity;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +81,36 @@ public class MongoBaseRepository<T extends BaseEntity<String>> {
                     + " was updated but could not be returned");
         }
         return updatedEntity;
+    }
+
+    public boolean delete(String id) {
+        final DeleteResult result = getCollection().deleteOne(eq(ID_FIELD, id));
+        final long deletedCount = result.getDeletedCount();
+        if (deletedCount < 1) {
+            throw new RuntimeException("Cannot find entity ::" + id + " to delete");
+        }
+        if (deletedCount > 1) {
+            log.warn("Inconsistency: More than one entity was deleted!");
+        }
+        log.info("Entity ::" + id + " was deleted");
+        return true;
+    }
+
+    protected boolean logicalDelete(String id) {
+        final T foundEntity = getCollection().find(eq(ID_FIELD, id)).first();
+        if (foundEntity == null) {
+            throw new RuntimeException("Cannot find entity ::" + id + " to logically delete");
+        }
+        final LocalDateTime now = LocalDateTime.now();
+        foundEntity.setUpdatedAt(now);
+        foundEntity.setDeletedAt(now);
+        final UpdateResult result = getCollection().replaceOne(eq(ID_FIELD, id), foundEntity);
+        final long modifiedCount = result.getModifiedCount();
+        log.info("Entity " + foundEntity.getClass().getSimpleName() + "::" + foundEntity.getId() + " was logically deleted");
+        if (modifiedCount < 1) {
+            throw new RuntimeException("Cannot logically delete ::" + id);
+        }
+        return true;
     }
 
     private String generateId() {

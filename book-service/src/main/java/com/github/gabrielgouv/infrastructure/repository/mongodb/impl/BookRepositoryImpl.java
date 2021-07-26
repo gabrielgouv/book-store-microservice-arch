@@ -26,7 +26,7 @@ public class BookRepositoryImpl extends MongoBaseRepository<Book> implements Boo
 
     @Override
     public boolean deleteBook(String bookId) {
-        return false;
+        return delete(bookId);
     }
 
     @Override
