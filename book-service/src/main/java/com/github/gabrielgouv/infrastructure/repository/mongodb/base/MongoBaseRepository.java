@@ -4,6 +4,8 @@ import com.github.gabrielgouv.domain.entity.base.BaseEntity;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.BsonValue;
 
 import javax.inject.Inject;
@@ -13,8 +15,9 @@ import java.util.UUID;
 
 import static com.mongodb.client.model.Filters.eq;
 
+@Slf4j
 @SuppressWarnings("unchecked")
-public class MongoBaseRepository<T extends BaseEntity> {
+public class MongoBaseRepository<T extends BaseEntity<String>> {
 
     protected static final String ID_FIELD = "_id";
 
@@ -42,19 +45,41 @@ public class MongoBaseRepository<T extends BaseEntity> {
         final String generatedId = generateId();
         entity.setId(generatedId);
         entity.setCreatedAt(LocalDateTime.now());
-        InsertOneResult result = getCollection().insertOne(entity);
+        final InsertOneResult result = getCollection().insertOne(entity);
         if (!result.wasAcknowledged()) {
             throw new RuntimeException("Cannot insert a new entity");
         }
-        BsonValue insertedId = result.getInsertedId();
+        final BsonValue insertedId = result.getInsertedId();
         if (insertedId == null) {
             throw new RuntimeException("Cannot get inserted entity id");
         }
-        T insertedEntity = getCollection().find(eq(ID_FIELD, generatedId)).first();
+        log.info("Entity " + entity.getClass().getSimpleName() + "::" + insertedId.asString().getValue() + " was inserted");
+        final T insertedEntity = getCollection().find(eq(ID_FIELD, generatedId)).first();
         if (insertedEntity == null) {
-            throw new RuntimeException("Entity id::" + insertedId.asObjectId().getValue() + " was inserted but could not be returned");
+            throw new RuntimeException("Entity " + entity.getClass().getSimpleName()  + "::" + insertedId.asObjectId().getValue()
+                    + " was inserted but could not be returned");
         }
         return insertedEntity;
+    }
+
+    protected T update(T entity) {
+        entity.setUpdatedAt(LocalDateTime.now());
+        final UpdateResult result = getCollection().replaceOne(eq(ID_FIELD, entity.getId()), entity);
+        final long modifiedCount = result.getModifiedCount();
+        log.info("Entity " + entity.getClass().getSimpleName() + "::" + entity.getId() + " was updated");
+        if (modifiedCount < 1) {
+            throw new RuntimeException("Cannot find entity " + entity.getClass().getSimpleName() + "::"
+                    + entity.getId() + " to update");
+        }
+        if (modifiedCount > 1) {
+            log.warn("Inconsistency: More than one entity was updated!");
+        }
+        final T updatedEntity = getCollection().find(eq(ID_FIELD, entity.getId())).first();
+        if (updatedEntity == null) {
+            throw new RuntimeException("Entity " + entity.getClass().getSimpleName() + "::" + entity.getId()
+                    + " was updated but could not be returned");
+        }
+        return updatedEntity;
     }
 
     private String generateId() {

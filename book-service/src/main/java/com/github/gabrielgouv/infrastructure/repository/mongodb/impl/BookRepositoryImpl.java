@@ -31,7 +31,7 @@ public class BookRepositoryImpl extends MongoBaseRepository<Book> implements Boo
 
     @Override
     public Book updateBook(Book book) {
-        return null;
+        return update(book);
     }
 
 }
