@@ -33,7 +33,7 @@
 
     <dependencies>
         <dependency>
-            <artifactId>book-store-core</artifactId>
+            <artifactId>microservice-core</artifactId>
             <groupId>com.github.gabrielgouv</groupId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
