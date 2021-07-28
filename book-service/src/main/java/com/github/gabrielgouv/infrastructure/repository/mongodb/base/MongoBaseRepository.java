@@ -83,7 +83,7 @@ public class MongoBaseRepository<T extends BaseEntity<String>> {
         return updatedEntity;
     }
 
-    public boolean delete(String id) {
+    protected boolean delete(String id) {
         final DeleteResult result = getCollection().deleteOne(eq(ID_FIELD, id));
         final long deletedCount = result.getDeletedCount();
         if (deletedCount < 1) {
