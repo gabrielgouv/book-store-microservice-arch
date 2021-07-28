@@ -7,6 +7,8 @@ import io.micronaut.http.annotation.*;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.List;
+
 @Controller("/books")
 public interface BookController {
 
@@ -37,5 +39,23 @@ public interface BookController {
     @ApiResponse(responseCode = "400", description = "Invalid model")
     @ApiResponse(responseCode = "404", description = "Book not found")
     HttpResponse<UpdateBookOutputDTO> updateBook(@Body UpdateBookInputDTO updateBookInputDTO);
+
+    /**
+     * @return A list with all registered books
+     */
+    @Get(produces = MediaType.APPLICATION_JSON)
+    @Tag(name = "Books")
+    @ApiResponse(responseCode = "404", description = "Books not found")
+    HttpResponse<List<BookInfoOutputDTO>> getAllBooks();
+
+    /**
+     * @param bookId ID of the book
+     * @return A book
+     */
+    @Delete(uri = "/{bookId}", produces = MediaType.APPLICATION_JSON)
+    @Tag(name = "Books")
+    @ApiResponse(responseCode = "400", description = "Invalid parameter")
+    @ApiResponse(responseCode = "404", description = "Book not found")
+    HttpResponse<BookInfoOutputDTO> getBook(@PathVariable String bookId);
 
 }

@@ -6,6 +6,7 @@ import com.github.gabrielgouv.presentation.controller.BookController;
 import io.micronaut.http.HttpResponse;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class BookControllerImpl implements BookController {
 
@@ -29,6 +30,16 @@ public class BookControllerImpl implements BookController {
     @Override
     public HttpResponse<UpdateBookOutputDTO> updateBook(UpdateBookInputDTO updateBookInputDTO) {
         return HttpResponse.ok(bookApplicationService.updateBook(updateBookInputDTO));
+    }
+
+    @Override
+    public HttpResponse<List<BookInfoOutputDTO>> getAllBooks() {
+        return null;
+    }
+
+    @Override
+    public HttpResponse<BookInfoOutputDTO> getBook(String bookId) {
+        return null;
     }
 
 }
