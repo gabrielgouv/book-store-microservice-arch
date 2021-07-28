@@ -25,7 +25,7 @@ import static com.mongodb.client.model.Filters.*;
 public class MongoBaseRepository<T extends BaseEntity<String>> {
 
     protected static final String ID_FIELD = "_id";
-    public static final String DELETED_AT_FIELD = "deletedAt";
+    protected static final String DELETED_AT_FIELD = "deletedAt";
 
     private final MongoClient mongoClient;
     private final String databaseName;
