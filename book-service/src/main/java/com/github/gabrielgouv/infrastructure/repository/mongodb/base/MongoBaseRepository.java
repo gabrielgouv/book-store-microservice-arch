@@ -1,6 +1,7 @@
 package com.github.gabrielgouv.infrastructure.repository.mongodb.base;
 
 import com.github.gabrielgouv.domain.entity.base.BaseEntity;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.DeleteResult;
@@ -12,15 +13,19 @@ import org.bson.BsonValue;
 import javax.inject.Inject;
 import java.lang.reflect.ParameterizedType;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
 
 @Slf4j
 @SuppressWarnings("unchecked")
 public class MongoBaseRepository<T extends BaseEntity<String>> {
 
     protected static final String ID_FIELD = "_id";
+    public static final String DELETED_AT_FIELD = "deletedAt";
 
     private final MongoClient mongoClient;
     private final String databaseName;
@@ -111,6 +116,21 @@ public class MongoBaseRepository<T extends BaseEntity<String>> {
             throw new RuntimeException("Cannot logically delete ::" + id);
         }
         return true;
+    }
+
+    protected List<T> findAll() {
+        final FindIterable<T> entitiesIterable = getCollection().find(exists(DELETED_AT_FIELD, false));
+        final List<T> entities = new ArrayList<>();
+        entitiesIterable.forEach(entities::add);
+        return entities;
+    }
+
+    protected Optional<T> findOne(String id) {
+        final T foundEntity = getCollection().find(eq(ID_FIELD, id)).first();
+        if (foundEntity == null || foundEntity.getDeletedAt() != null) {
+            return Optional.empty();
+        }
+        return Optional.of(foundEntity);
     }
 
     private String generateId() {

@@ -6,6 +6,8 @@ import com.github.gabrielgouv.domain.service.BookDomainService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class BookDomainServiceImpl implements BookDomainService {
@@ -30,6 +32,16 @@ public class BookDomainServiceImpl implements BookDomainService {
     @Override
     public Book updateBook(Book book) {
         return this.bookRepository.updateBook(book);
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        return this.bookRepository.getAllBooks();
+    }
+
+    @Override
+    public Optional<Book> getBook(String id) {
+        return this.bookRepository.getBook(id);
     }
 
 }

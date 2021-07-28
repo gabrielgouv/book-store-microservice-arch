@@ -8,6 +8,8 @@ import com.github.gabrielgouv.domain.service.BookDomainService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class BookApplicationServiceImpl implements BookApplicationService {
@@ -39,6 +41,22 @@ public class BookApplicationServiceImpl implements BookApplicationService {
         final Book bookToUpdate = BookMapper.INSTANCE.updateBookInputDtoToBook(updateBookInputDTO);
         final Book updatedBook = bookDomainService.updateBook(bookToUpdate);
         return BookMapper.INSTANCE.bookToUpdateBookOutputDTO(updatedBook);
+    }
+
+    @Override
+    public List<BookInfoOutputDTO> getAllBooks() {
+        List<Book> allBooks = bookDomainService.getAllBooks();
+        return BookMapper.INSTANCE.bookToBookInfoOutputDto(allBooks);
+    }
+
+    @Override
+    public Optional<BookInfoOutputDTO> getBook(String id) {
+        final Optional<Book> book = bookDomainService.getBook(id);
+        if (book.isEmpty()) {
+            return Optional.empty();
+        }
+        BookInfoOutputDTO bookInfoOutputDTO = BookMapper.INSTANCE.bookToBookInfoOutputDto(book.get());
+        return Optional.of(bookInfoOutputDTO);
     }
 
 }

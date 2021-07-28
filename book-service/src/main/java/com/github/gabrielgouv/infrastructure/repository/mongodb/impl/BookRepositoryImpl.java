@@ -7,6 +7,8 @@ import com.mongodb.client.MongoClient;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class BookRepositoryImpl extends MongoBaseRepository<Book> implements BookRepository {
@@ -32,6 +34,16 @@ public class BookRepositoryImpl extends MongoBaseRepository<Book> implements Boo
     @Override
     public Book updateBook(Book book) {
         return update(book);
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        return findAll();
+    }
+
+    @Override
+    public Optional<Book> getBook(String id) {
+        return findOne(id);
     }
 
 }

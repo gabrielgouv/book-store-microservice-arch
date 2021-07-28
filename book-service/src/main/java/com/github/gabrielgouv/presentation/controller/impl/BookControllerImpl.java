@@ -7,6 +7,7 @@ import io.micronaut.http.HttpResponse;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 public class BookControllerImpl implements BookController {
 
@@ -34,12 +35,16 @@ public class BookControllerImpl implements BookController {
 
     @Override
     public HttpResponse<List<BookInfoOutputDTO>> getAllBooks() {
-        return null;
+        return HttpResponse.ok(bookApplicationService.getAllBooks());
     }
 
     @Override
     public HttpResponse<BookInfoOutputDTO> getBook(String bookId) {
-        return null;
+        final Optional<BookInfoOutputDTO> bookInfoOutputDTO = bookApplicationService.getBook(bookId);
+        if (bookInfoOutputDTO.isPresent()) {
+            return HttpResponse.ok(bookInfoOutputDTO.get());
+        }
+        return HttpResponse.notFound();
     }
 
 }

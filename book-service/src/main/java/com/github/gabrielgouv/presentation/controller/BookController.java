@@ -52,7 +52,7 @@ public interface BookController {
      * @param bookId ID of the book
      * @return A book
      */
-    @Delete(uri = "/{bookId}", produces = MediaType.APPLICATION_JSON)
+    @Get(uri = "/{bookId}", produces = MediaType.APPLICATION_JSON)
     @Tag(name = "Books")
     @ApiResponse(responseCode = "400", description = "Invalid parameter")
     @ApiResponse(responseCode = "404", description = "Book not found")
