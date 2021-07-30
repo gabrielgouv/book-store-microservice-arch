@@ -59,10 +59,10 @@ public class MongoBaseRepository<T extends BaseEntity<String>> {
         if (insertedId == null) {
             throw new RuntimeException("Cannot get inserted entity id");
         }
-        log.info("Entity " + entity.getClass().getSimpleName() + "::" + insertedId.asString().getValue() + " was inserted");
+        log.info("Entity {} was inserted", getCollectionReference(insertedId.asString().getValue()));
         final T insertedEntity = getCollection().find(eq(ID_FIELD, generatedId)).first();
         if (insertedEntity == null) {
-            throw new RuntimeException("Entity " + entity.getClass().getSimpleName()  + "::" + insertedId.asObjectId().getValue()
+            throw new RuntimeException("Entity " + getCollectionReference(insertedId.asString().getValue())
                     + " was inserted but could not be returned");
         }
         return insertedEntity;
@@ -72,17 +72,16 @@ public class MongoBaseRepository<T extends BaseEntity<String>> {
         entity.setUpdatedAt(LocalDateTime.now());
         final UpdateResult result = getCollection().replaceOne(eq(ID_FIELD, entity.getId()), entity);
         final long modifiedCount = result.getModifiedCount();
-        log.info("Entity " + entity.getClass().getSimpleName() + "::" + entity.getId() + " was updated");
+        log.info("Entity {} was updated", getCollectionReference(entity.getId()));
         if (modifiedCount < 1) {
-            throw new RuntimeException("Cannot find entity " + entity.getClass().getSimpleName() + "::"
-                    + entity.getId() + " to update");
+            throw new RuntimeException("Cannot find entity " + getCollectionReference(entity.getId()) + " to update");
         }
         if (modifiedCount > 1) {
-            log.warn("Inconsistency: More than one entity was updated!");
+            log.warn("Inconsistency: More than one entity with id {} was updated!", getCollectionReference(entity.getId()));
         }
         final T updatedEntity = getCollection().find(eq(ID_FIELD, entity.getId())).first();
         if (updatedEntity == null) {
-            throw new RuntimeException("Entity " + entity.getClass().getSimpleName() + "::" + entity.getId()
+            throw new RuntimeException("Entity " + getCollectionReference(entity.getId())
                     + " was updated but could not be returned");
         }
         return updatedEntity;
@@ -92,28 +91,28 @@ public class MongoBaseRepository<T extends BaseEntity<String>> {
         final DeleteResult result = getCollection().deleteOne(eq(ID_FIELD, id));
         final long deletedCount = result.getDeletedCount();
         if (deletedCount < 1) {
-            throw new RuntimeException("Cannot find entity ::" + id + " to delete");
+            throw new RuntimeException("Cannot find entity " + getCollectionReference(id) + " to delete");
         }
         if (deletedCount > 1) {
-            log.warn("Inconsistency: More than one entity was deleted!");
+            log.warn("Inconsistency: More than one entity with id {} was deleted!", getCollectionReference(id));
         }
-        log.info("Entity ::" + id + " was deleted");
+        log.info("Entity {} was deleted", getCollectionReference(id));
         return true;
     }
 
     protected boolean logicalDelete(String id) {
         final T foundEntity = getCollection().find(eq(ID_FIELD, id)).first();
         if (foundEntity == null) {
-            throw new RuntimeException("Cannot find entity ::" + id + " to logically delete");
+            throw new RuntimeException("Cannot find entity " + getCollectionReference(id) + " to logically delete");
         }
         final LocalDateTime now = LocalDateTime.now();
         foundEntity.setUpdatedAt(now);
         foundEntity.setDeletedAt(now);
         final UpdateResult result = getCollection().replaceOne(eq(ID_FIELD, id), foundEntity);
         final long modifiedCount = result.getModifiedCount();
-        log.info("Entity " + foundEntity.getClass().getSimpleName() + "::" + foundEntity.getId() + " was logically deleted");
+        log.info("Entity {} was logically deleted", getCollectionReference(id));
         if (modifiedCount < 1) {
-            throw new RuntimeException("Cannot logically delete ::" + id);
+            throw new RuntimeException("Cannot logically delete " + getCollectionReference(id));
         }
         return true;
     }
@@ -135,6 +134,13 @@ public class MongoBaseRepository<T extends BaseEntity<String>> {
 
     private String generateId() {
         return UUID.randomUUID().toString();
+    }
+
+    private String getCollectionReference(String id) {
+        if (id != null) {
+            return collectionName + "::" + id;
+        }
+        return collectionName + "::";
     }
 
 }
