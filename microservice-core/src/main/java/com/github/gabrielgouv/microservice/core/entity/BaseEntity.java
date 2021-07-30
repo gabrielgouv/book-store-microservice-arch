@@ -1,4 +1,4 @@
-package com.github.gabrielgouv.bookstore.core.domain;
+package com.github.gabrielgouv.microservice.core.entity;
 
 import lombok.Data;
 

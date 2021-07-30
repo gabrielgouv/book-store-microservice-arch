@@ -1,6 +1,6 @@
 package com.github.gabrielgouv.domain.entity;
 
-import com.github.gabrielgouv.bookstore.core.domain.BaseEntity;
+import com.github.gabrielgouv.microservice.core.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,4 +1,4 @@
-package com.github.gabrielgouv.bookstore.core.filter;
+package com.github.gabrielgouv.microservice.core.filter;
 
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.annotation.Value;
@@ -14,7 +14,7 @@ import org.reactivestreams.Publisher;
 
 import java.time.Duration;
 
-import static com.github.gabrielgouv.bookstore.core.filter.OpenApiViewCookieContextPathFilter.CONTEXT_PATH_KEY;
+import static com.github.gabrielgouv.microservice.core.filter.OpenApiViewCookieContextPathFilter.CONTEXT_PATH_KEY;
 
 @Requires(property = CONTEXT_PATH_KEY)
 @Filter(methods = { HttpMethod.GET, HttpMethod.HEAD }, patterns = { "/**/swagger-ui*" })
