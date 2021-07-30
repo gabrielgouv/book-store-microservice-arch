@@ -88,11 +88,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>io.micronaut.mongodb</groupId>
-            <artifactId>micronaut-mongo-sync</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
             <scope>compile</scope>

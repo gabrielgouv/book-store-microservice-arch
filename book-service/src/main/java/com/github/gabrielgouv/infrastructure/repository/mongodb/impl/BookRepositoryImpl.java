@@ -1,8 +1,8 @@
 package com.github.gabrielgouv.infrastructure.repository.mongodb.impl;
 
+import com.github.gabrielgouv.bookstore.core.repository.mongo.MongoBaseRepository;
 import com.github.gabrielgouv.domain.entity.Book;
 import com.github.gabrielgouv.domain.repository.BookRepository;
-import com.github.gabrielgouv.infrastructure.repository.mongodb.base.MongoBaseRepository;
 import com.mongodb.client.MongoClient;
 
 import javax.inject.Inject;

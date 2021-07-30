@@ -1,4 +1,4 @@
-package com.github.gabrielgouv.domain.entity.base;
+package com.github.gabrielgouv.bookstore.core.domain;
 
 import lombok.Data;
 

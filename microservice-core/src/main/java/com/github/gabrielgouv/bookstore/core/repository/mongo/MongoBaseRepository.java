@@ -1,6 +1,6 @@
-package com.github.gabrielgouv.infrastructure.repository.mongodb.base;
+package com.github.gabrielgouv.bookstore.core.repository.mongo;
 
-import com.github.gabrielgouv.domain.entity.base.BaseEntity;
+import com.github.gabrielgouv.bookstore.core.domain.BaseEntity;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
