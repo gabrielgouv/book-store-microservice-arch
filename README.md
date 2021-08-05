@@ -11,6 +11,27 @@ This is a big personal project to put in practice some microservices technologie
 - Domain Driven Design
 - Saga (not implemented yet)
 
+### Multiple Repositories Implementations
+#### Múltiplas Implementações de Repositórios
+**EN:**<br>
+TODO
+
+**PT-BR:**<br>
+Os serviços possuem dois tipos padrões de implementações de repositório: **mongo** e **mock**.
+- **mongo:** Implementação padrão. Utiliza o banco de dados MongoDB definido na propriedade `mongodb.uri`.
+- **mock:** Utiliza recursos previamente mockados sem nenhum uso de banco de dados. Os métodos **POST**, **PUT** ou **DELETE** não afetarão os recursos.
+
+Trocando entre as implementações:
+
+No `application.yaml`, a propriedade abaixo define a implementação que será injetada:
+```yaml
+service:
+  database:
+    use: mongo
+```
+Altere de `mongo` para `mock` caso não queira configurar (ou usar) um banco de dados MongoDB.
+
+
 ### Resume:
 
 **book-service (Service)**
