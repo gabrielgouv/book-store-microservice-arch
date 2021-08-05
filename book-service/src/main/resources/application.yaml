@@ -13,5 +13,9 @@ micronaut:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
 
+service:
+  database:
+    use: mongo
+
 mongodb:
   uri: mongodb://username:password@localhost:27017/databaseName

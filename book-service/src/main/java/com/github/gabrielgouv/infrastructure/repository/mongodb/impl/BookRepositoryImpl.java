@@ -6,10 +6,12 @@ import com.github.gabrielgouv.domain.repository.BookRepository;
 import com.mongodb.client.MongoClient;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
 
+@Named("mongo")
 @Singleton
 public class BookRepositoryImpl extends MongoBaseRepository<Book> implements BookRepository {
 

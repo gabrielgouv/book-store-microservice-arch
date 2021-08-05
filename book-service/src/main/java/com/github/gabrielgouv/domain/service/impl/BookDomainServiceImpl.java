@@ -5,6 +5,7 @@ import com.github.gabrielgouv.domain.repository.BookRepository;
 import com.github.gabrielgouv.domain.service.BookDomainService;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class BookDomainServiceImpl implements BookDomainService {
     private final BookRepository bookRepository;
 
     @Inject
-    public BookDomainServiceImpl(final BookRepository bookRepository) {
+    public BookDomainServiceImpl(@Named("${service.database.use}") final BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
